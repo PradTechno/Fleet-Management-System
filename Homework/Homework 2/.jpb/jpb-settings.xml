@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaLiquibaseChangesConfig">
+    <exclude-change idName="FK_USERS_ON_USERDETAILS" tagName="addForeignKeyConstraint" />
+    <exclude-change idName="users#user_details_id" tagName="addColumn" />
+    <exclude-change idName="users_user_details_ibfk_1" tagName="dropForeignKeyConstraint" />
+    <exclude-change idName="users_user_details_ibfk_2" tagName="dropForeignKeyConstraint" />
+    <exclude-change idName="users_user_details" tagName="dropTable" />
+    <exclude-change idName="user_details#cnp" tagName="modifyDataType" />
+    <exclude-change idName="user_details#cnp" tagName="dropNotNullConstraint" />
+    <exclude-change idName="users#full_name" tagName="modifyDataType" />
+    <exclude-change idName="users#user_type" tagName="modifyDataType" />
+    <exclude-change idName="users#username" tagName="modifyDataType" />
+    <exclude-change idName="users#username" tagName="dropNotNullConstraint" />
+  </component>
+</project>
