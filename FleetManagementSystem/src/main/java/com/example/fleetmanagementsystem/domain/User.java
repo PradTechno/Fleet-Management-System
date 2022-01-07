@@ -31,4 +31,7 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "companyId")
     private Company company;
+
+    @OneToMany(mappedBy="user")
+    private Collection<DrivingCategory> drivingCategories;
 }

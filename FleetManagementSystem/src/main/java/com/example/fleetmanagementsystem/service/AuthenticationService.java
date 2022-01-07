@@ -58,20 +58,24 @@ public class AuthenticationService {
         }
 
         if (passwordEncoder.matches(loginDto.getPassword(), userDetails.getPassword())) {
+            User user = userService.getUser(loginDto.getUsername());
+
             Map<String, String> claims = new HashMap<>();
 
             String authorities = userDetails.getAuthorities().stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.joining(" "));
             claims.put(WebSecurityConfig.AUTHORITIES_CLAIM_NAME, authorities);
-
+            if(user.getCompany() != null){
+                claims.put("companyId", String.valueOf(user.getCompany().getId()));
+            }
             return new LoginResultDto(jwtHelper.createJwtForClaims(loginDto.getUsername(), claims));
         }
 
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
     }
 
-    public UserDto registerUser(RegisterDto registerDto, Long companyId) {
+    public UserDto registerUser(RegisterDto registerDto, Long companyId, String authority) {
         var company = companyService.getCompany(companyId);
 
         if (userService.getUser(registerDto.getUsername()) != null) {
@@ -80,7 +84,7 @@ public class AuthenticationService {
         User user = registerMapper.mapToUser(registerDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCompany(company);
-        var userAuthorities = List.of(new Authority("ROLE_MEMBER", user));
+        var userAuthorities = List.of(new Authority(authority, user));
         user.setAuthorities(userAuthorities);
         return userMapper.mapToUserDto(userService.save(user));
     }

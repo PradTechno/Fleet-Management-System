@@ -7,6 +7,9 @@ import com.example.fleetmanagementsystem.dto.UserDto;
 import com.example.fleetmanagementsystem.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +29,18 @@ public class AuthenticationController {
         return ResponseEntity.ok().body(loginResult);
     }
 
-    @PostMapping("/company/{companyId}/user")
-    public ResponseEntity<UserDto> register(@Valid @RequestBody RegisterDto registerDto, @PathVariable Long companyId){
-        var registerResult = authenticationService.registerUser(registerDto, companyId);
-        return ResponseEntity.ok().body(registerResult);    }
+    @PostMapping("/company/{companyId}/manager")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<UserDto> addCompanyManager(@Valid @RequestBody RegisterDto registerDto, @PathVariable Long companyId) {
+        var registerResult = authenticationService.registerUser(registerDto, companyId, "ROLE_MANAGER");
+        return ResponseEntity.ok().body(registerResult);
+    }
+
+    @PostMapping("/company/driver")
+    @PreAuthorize("hasAuthority('ROLE_MANAGER')")
+    public ResponseEntity<UserDto> addCompanyDriver(@Valid @RequestBody RegisterDto registerDto, @AuthenticationPrincipal Jwt jwt) {
+        Long companyId = Long.valueOf(jwt.getClaim("companyId"));
+        var registerResult = authenticationService.registerUser(registerDto, companyId, "ROLE_DRIVER");
+        return ResponseEntity.ok().body(registerResult);
+    }
 }

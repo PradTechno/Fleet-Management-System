@@ -37,8 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests(configurer ->
                         configurer
                                 .antMatchers(
-                                        "/login",
-                                        "/company/{companyId}/user"
+                                        "/login"
                                 )
                                 .permitAll()
                                 .anyRequest()
