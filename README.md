@@ -1,5 +1,7 @@
 # Fleet Management System
 
+Postman collection can be downloaded from here: https://www.getpostman.com/collections/c50745c882d4c7840194
+
 The main goals of this fleet management system are to improve the efficiency and productivity of a fleet, as well as improving the safety conditions for its drivers.
 
 ## Features
