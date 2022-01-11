@@ -32,6 +32,6 @@ public class User {
     @JoinColumn(name = "companyId")
     private Company company;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy = "user")
     private Collection<DrivingCategory> drivingCategories;
 }

@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -23,10 +23,10 @@ public class Transport {
     private String destinationAddress;
 
     @Column(name = "startDate")
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "finishDate")
-    private Date finishDate;
+    private LocalDateTime finishDate;
 
     @Enumerated(EnumType.STRING)
     private TransportStatusEnum status;
@@ -39,9 +39,10 @@ public class Transport {
     @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
 
-    @OneToMany(mappedBy = "transport", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "transport", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Collection<TransportAction> transportActions;
 
-    @OneToOne(mappedBy = "transport")
+    @OneToOne(mappedBy = "transport", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private Route route;
 }

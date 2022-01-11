@@ -10,12 +10,14 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({TYPE,ANNOTATION_TYPE})
+@Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = CarMaintenanceIsSetValidator.class)
 @Documented
 public @interface CarMaintenanceIsSet {
     String message() default "Number of km or set date should not be null.";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

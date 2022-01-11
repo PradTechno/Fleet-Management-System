@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -48,7 +46,7 @@ public class Car {
     @OneToMany(mappedBy="car", fetch = FetchType.LAZY)
     private Collection<CarMaintenance> carMaintenances;
 
-    @OneToMany(mappedBy="car")
+    @OneToMany(mappedBy="car", fetch = FetchType.LAZY)
     private Set<Transport> transports;
 
 }

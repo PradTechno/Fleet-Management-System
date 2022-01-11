@@ -11,5 +11,7 @@ public interface CarMaintenanceMapper {
     CarMaintenance mapToCarMaintenance(CarMaintenanceDto carMaintenanceDto);
 
     @Mapping(target = "createdDate", expression = "java(carMaintenance.getCreatedDate())")
+    @Mapping(target = "carId", expression = "java(carMaintenance.getCar().getId())")
+    @Mapping(target = "checked", source = "checked")
     CarMaintenanceDto mapToCarMaintenanceDto(CarMaintenance carMaintenance);
 }

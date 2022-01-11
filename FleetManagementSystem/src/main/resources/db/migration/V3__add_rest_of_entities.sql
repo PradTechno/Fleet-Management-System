@@ -17,7 +17,7 @@ CREATE TABLE carMaintenances
     carId       BIGINT       NOT NULL,
     numberOfKm  integer,
     setDate     DATE,
-    checked     BIT NOT NULL default 0,
+    checked     BIT          NOT NULL default 0,
     createdDate timestamp    NOT NULL,
     createdBy   varchar(255) NOT NULL
 );
@@ -47,15 +47,17 @@ CREATE TABLE transportActions
 (
     id          BIGINT PRIMARY KEY AUTO_INCREMENT,
     transportId BIGINT      not null,
-    type        VARCHAR(10) NOT NULL,
-    currentFuel decimal     NOT NULL
+    type        VARCHAR(15) NOT NULL,
+    currentFuel decimal     NOT NULL,
+    numberOfKm  INTEGER     NOT NULL,
+    createdDate timestamp   not null
 );
 
 CREATE TABLE routes
 (
     id            BIGINT PRIMARY KEY,
-    content       varchar(255),
-    totalDistance integer
+    totalDuration BIGINT,
+    totalDistance BIGINT
 );
 
 ALTER TABLE cars
@@ -78,3 +80,23 @@ ALTER TABLE transportActions
 
 ALTER TABLE routes
     ADD FOREIGN KEY (id) REFERENCES transports (id);
+
+
+INSERT INTO cars (companyId, brand, model, modelYear, tankCapacity, licenseNeeded, createdDate, createdBy)
+values (1, 'MAN', 'TGA 18.430', 2004, 910, 'C', CURRENT_TIMESTAMP(), 'chitacm00@gmail.com');
+
+INSERT INTO carMaintenances (carId, numberOfKm, setDate, checked, createdDate, createdBy)
+VALUES (LAST_INSERT_ID(), 100000, null, 1, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com'),
+       (LAST_INSERT_ID(), 150000, null, 1, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com'),
+       (LAST_INSERT_ID(), null, '2022-01-02', 1, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com'),
+       (LAST_INSERT_ID(), null, '2022-05-30', 0, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com');
+
+
+INSERT INTO cars (companyId, brand, model, modelYear, tankCapacity, licenseNeeded, createdDate, createdBy)
+values (1, 'MAN', 'TGA 26.440', 2012, 400, 'C', CURRENT_TIMESTAMP(), 'chitacm00@gmail.com');
+
+INSERT INTO carMaintenances (carId, numberOfKm, setDate, checked, createdDate, createdBy)
+VALUES (LAST_INSERT_ID(), 300000, null, 1, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com'),
+       (LAST_INSERT_ID(), null, '2021-10-20', 1, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com'),
+       (LAST_INSERT_ID(), null, '2022-01-02', 1, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com'),
+       (LAST_INSERT_ID(), null, '2022-03-21', 0, CURRENT_TIMESTAMP(), 'chitacm00@gmail.com');

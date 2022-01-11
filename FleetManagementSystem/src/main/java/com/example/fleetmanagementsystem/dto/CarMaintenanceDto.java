@@ -12,12 +12,14 @@ import java.time.LocalDateTime;
 @Data
 @CarMaintenanceIsSet
 public class CarMaintenanceDto {
+    private Long carId;
     @Future
     @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate setDate;
-
     @Min(1)
     private Long numberOfKm;
+
+    private Boolean checked;
 
     private LocalDateTime createdDate;
 

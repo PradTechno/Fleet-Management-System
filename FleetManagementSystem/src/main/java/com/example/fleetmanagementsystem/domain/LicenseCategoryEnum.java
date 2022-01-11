@@ -18,4 +18,4 @@ public enum LicenseCategoryEnum {
     D1E,
     D,
     E
-    }
+}

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -17,6 +18,12 @@ public class TransportAction {
     @Column
     @Enumerated(EnumType.STRING)
     private TransportActionTypeEnum type;
+
+    @Column(name = "numberOfKm")
+    private Integer numberOfKm;
+
+    @Column(name = "createdDate")
+    private LocalDateTime createdDate;
 
     @Column
     private Double currentFuel;

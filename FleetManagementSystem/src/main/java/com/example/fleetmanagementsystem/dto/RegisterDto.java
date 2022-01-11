@@ -23,6 +23,6 @@ public class RegisterDto {
     @NotEmpty
     private String matchingPassword;
 
-    @Pattern(regexp="^07[0-9]{8}$",message="Telephone number should have 10 digits.")
+    @Pattern(regexp = "^07[0-9]{8}$", message = "Telephone number should have 10 digits.")
     private String telephoneNumber;
 }

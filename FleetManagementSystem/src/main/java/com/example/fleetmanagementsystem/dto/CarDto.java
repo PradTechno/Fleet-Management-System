@@ -5,14 +5,15 @@ import com.example.fleetmanagementsystem.validation.YearBetween;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 public class CarDto {
-    @NotNull
+    @NotEmpty
     private String brand;
-    @NotNull
+    @NotEmpty
     private String model;
     @NotNull
     @YearBetween(minYear = 2000)

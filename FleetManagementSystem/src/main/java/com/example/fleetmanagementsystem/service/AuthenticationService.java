@@ -66,7 +66,7 @@ public class AuthenticationService {
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.joining(" "));
             claims.put(WebSecurityConfig.AUTHORITIES_CLAIM_NAME, authorities);
-            if(user.getCompany() != null){
+            if (user.getCompany() != null) {
                 claims.put("companyId", String.valueOf(user.getCompany().getId()));
             }
             return new LoginResultDto(jwtHelper.createJwtForClaims(loginDto.getUsername(), claims));

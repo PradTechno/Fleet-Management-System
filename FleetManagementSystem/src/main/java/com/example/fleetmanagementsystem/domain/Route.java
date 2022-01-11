@@ -1,6 +1,7 @@
 package com.example.fleetmanagementsystem.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,19 +9,27 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "routes")
 public class Route {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String content;
+    @Column(name = "totalDuration")
+    private Long totalDuration;
 
     @Column(name = "totalDistance")
-    private Integer totalDistance;
+    private Long totalDistance;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transportId")
+    @MapsId
+    @JoinColumn(name = "id")
     private Transport transport;
+
+    public Route(Long distance, Long duration) {
+        super();
+
+        this.totalDistance = distance;
+        this.totalDuration = duration;
+    }
 }
